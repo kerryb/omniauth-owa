@@ -101,5 +101,18 @@ describe OmniAuth::Strategies::OWA do
         expect(last_response.location).to eq "/auth/failure?message=invalid_credentials&strategy=owa"
       end
     end
+
+    context "when response parsing fails" do
+      before do
+        stub_request(:get, "https://fred:secret@mail.example.com/owa/?ae=Dialog&t=AddressBook&ctx=1&sch=fred").
+          to_return body: "Some gibbersish"
+        post "/auth/owa/callback", uid: "fred", password: "secret"
+      end
+
+      it "fails with 'internal_error'" do
+        expect(last_response).to be_redirect
+        expect(last_response.location).to eq "/auth/failure?message=internal_error&strategy=owa"
+      end
+    end
   end
 end

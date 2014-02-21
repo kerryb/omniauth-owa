@@ -33,6 +33,8 @@ module OmniAuth
         @info[:email] = details.match(/<td[^>]*>E-mail<\/td><td[^>]*>([^<]*)/)[1]
         @info[:name] = "#{@info[:first_name]} #{@info[:last_name]}"
         super
+      rescue
+        fail! :internal_error
       end
 
       uid do
