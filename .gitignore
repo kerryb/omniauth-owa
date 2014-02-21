@@ -1,3 +1,3 @@
 Gemfile.lock
 .rvmrc
-omniauth-owa-0.0.1.gem
+omniauth-owa-*.gem
