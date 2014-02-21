@@ -8,6 +8,7 @@ require "omniauth/strategies/owa"
 
 describe OmniAuth::Strategies::OWA do
   include Rack::Test::Methods
+  OmniAuth.config.logger = Logger.new "/dev/null"
 
   let(:app) do
     Rack::Builder.new do |b|
