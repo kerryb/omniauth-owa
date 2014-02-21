@@ -27,9 +27,11 @@ module OmniAuth
         id = search_results.match(/<h1><a href="#" id="([^"]+)"/)[1]
         details = conn.get("/owa/?ae=Item&t=AD.RecipientType.User&id=#{CGI.escape id}").body
 
-        @first_name = details.match(/<td[^>]*>First name<\/td><td[^>]*>([^<]*)/)[1]
-        @last_name = details.match(/<td[^>]*>Last name<\/td><td[^>]*>([^<]*)/)[1]
-        @name = "#{@first_name} #{@last_name}"
+        @info = {}
+        @info[:first_name] = details.match(/<td[^>]*>First name<\/td><td[^>]*>([^<]*)/)[1]
+        @info[:last_name] = details.match(/<td[^>]*>Last name<\/td><td[^>]*>([^<]*)/)[1]
+        @info[:email] = details.match(/<td[^>]*>E-mail<\/td><td[^>]*>([^<]*)/)[1]
+        @info[:name] = "#{@info[:first_name]} #{@info[:last_name]}"
         super
       end
 
@@ -38,11 +40,7 @@ module OmniAuth
       end
 
       info do
-        {
-          name: @name,
-          first_name: @first_name,
-          last_name: @last_name,
-        }
+        @info
       end
     end
   end

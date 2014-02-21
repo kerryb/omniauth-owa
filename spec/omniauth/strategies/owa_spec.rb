@@ -60,6 +60,7 @@ describe OmniAuth::Strategies::OWA do
           Blah blah
           <tr><td class="lbl lp" nowrap>First name</td><td class="txvl">Fred</td></tr>
           <tr><td class="lbl lp" nowrap>Last name</td><td class="txvl">Bloggs</td></tr>
+          <tr><td class="lbl lp" nowrap>E-mail</td><td class="txvl">fred.bloggs@example.com</td></tr>
           blah
         EOF
 
@@ -80,6 +81,10 @@ describe OmniAuth::Strategies::OWA do
 
       it "sets the last name in the auth hash" do
         expect(auth_hash.info.last_name).to eq("Bloggs")
+      end
+
+      it "sets the email address in the auth hash" do
+        expect(auth_hash.info.email).to eq("fred.bloggs@example.com")
       end
     end
 

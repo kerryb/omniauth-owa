@@ -35,6 +35,7 @@ The parameters returned in the authentication hash are:
 * info.name
 * info.first_name
 * info.last_name
+* info.email
 
 ## Licence
 
